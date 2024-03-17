@@ -25,16 +25,20 @@ h1 {
 }
 
 #chat-log::-webkit-scrollbar {
-    width: 10px; /* Ancho de la barra de desplazamiento */
+    width: 10px;
 }
 
 #chat-log::-webkit-scrollbar-track {
-    background: #333333; /* Color de fondo del track de la barra de desplazamiento */
+    background: #333333;
 }
 
 #chat-log::-webkit-scrollbar-thumb {
-    background-color: #555; /* Color del thumb de la barra de desplazamiento */
-    border-radius: 5px; /* Radio de borde del thumb */
+    background-color: #555;
+    border-radius: 5px;
+}
+
+#chat-log::-webkit-scrollbar-thumb:hover{
+    background-color: #777;
 }
 
 .user-message, .bot-message {
