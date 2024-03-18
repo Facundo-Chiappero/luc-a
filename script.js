@@ -8,7 +8,8 @@ const sendBtn = document.getElementById('send-btn');
 // Actualiza el chat al apretar el boton de enviar
 sendBtn.addEventListener('click', async () => {
         
-        const userMessage = userInput.value.trim();
+        const userMessage = userInput.value.trim() + ", teniendo en cuenta lo que te dije, dame un prediagnostico medico";
+        
         if (userMessage === '') return;
         
         appendMessage('user', userMessage);
