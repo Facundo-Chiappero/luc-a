@@ -8,8 +8,7 @@ const sendBtn = document.getElementById('send-btn');
 // Actualiza el chat al apretar el boton de enviar
 sendBtn.addEventListener('click', async () => {
         
-        const userMessage = userInput.value.trim() + ", teniendo en cuenta lo que te dije, dame un prediagnostico medico";
-        
+        const userMessage = userInput.value.trim() + ", teniendo en cuenta lo que te dije, dame un prediagnostico medico, responde en maximo 50 palabras";
         if (userMessage === '') return;
         
         appendMessage('user', userMessage);
@@ -39,7 +38,7 @@ async function sendMessage(message) {
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json', 
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
@@ -47,9 +46,10 @@ async function sendMessage(message) {
                 messages: [
                     {
                         role: 'user',
-                        content: message
+                        content: message+=", si es necesario hazme preguntas para mejorar tu respuestas, responde en maximo 50 palabras"
                     }
-                ]
+                ],
+                max_tokens: 25
             })
         });
         
