@@ -72,7 +72,7 @@ h1 {
     /* margin:10px; */
 }
 
-#send-btn {
+.btn {
     background-color: #4caf50;
     color: #ffffff; 
     border: none;
@@ -82,6 +82,16 @@ h1 {
     cursor: pointer;
 }
 
-#send-btn:hover {
+.btn:hover {
     background-color: #45a049; 
+}
+
+#btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#btnStop{
+    display: none;
 }
