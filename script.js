@@ -4,6 +4,46 @@ const apiKey = 'API KEY AQUI'
 const chatLog = document.getElementById('chat-log');
 const userInput = document.getElementById('user-input');
 const sendBtn = document.getElementById('send-btn');
+const btnStart = document.getElementById('btnStart');
+const btnStop = document.getElementById('btnStop');
+
+//reconocimiento de voz
+const recognition = new webkitSpeechRecognition();
+
+recognition.continuous = true;
+recognition.lang = 'es-ES';
+recognition.interimResult = false;
+
+btnStart.addEventListener('click', () => {
+    recognition.start();
+    
+    btnStart.style.display="none"
+    btnStop.style.display="block"
+});
+
+btnStop.addEventListener('click', () => {
+    recognition.abort();
+
+    btnStart.style.display="block"
+    btnStop.style.display="none"
+});
+
+recognition.onresult = (event) => {
+    const texto = event.results[event.results.length - 1][0].transcript;
+    userInput.value = texto;
+    leerTexto(texto);
+}
+
+function leerTexto(text) {
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.volume = 1;
+    speech.rate = 0.5;
+    speech.pitch = 0.4;
+    speech.lang = 'es-ES'
+
+    window.speechSynthesis.speak(speech);
+}
+//
 
 // Actualiza el chat al apretar el boton de enviar
 sendBtn.addEventListener('click', async () => {
