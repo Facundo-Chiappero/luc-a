@@ -48,7 +48,7 @@ function leerTexto(text) {
 // Actualiza el chat al apretar el boton de enviar
 sendBtn.addEventListener('click', async () => {
         
-        const userMessage = userInput.value.trim() + ", teniendo en cuenta lo que te dije, dame un prediagnostico medico, responde en maximo 50 palabras";
+        const userMessage = userInput.value.trim();
         if (userMessage === '') return;
         
         appendMessage('user', userMessage);
