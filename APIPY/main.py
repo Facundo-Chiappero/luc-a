@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configura tu clave de API de OpenAI
-client = OpenAI(api_key='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')
+client = OpenAI(api_key='API KEY')
 
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
