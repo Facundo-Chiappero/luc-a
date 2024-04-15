@@ -89,7 +89,8 @@ async function sendMessage(message) {
                         content: message+=", si es necesario hazme preguntas para mejorar tu respuestas, responde en maximo 50 palabras"
                     }
                 ],
-                max_tokens: 25
+                max_tokens: 25,
+                temperature: 0.2
             })
         });
         
