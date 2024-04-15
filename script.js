@@ -1,6 +1,6 @@
 const axios = require('axios');
 // OPENAI API KEY (hay que ocultarla al publico)
-const apiKey = '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'
+const apiKey = 'API KEY'
 
 const chatLog = document.getElementById('chat-log');
 const userInput = document.getElementById('user-input');
