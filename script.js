@@ -1,5 +1,6 @@
+const axios = require('axios');
 // OPENAI API KEY (hay que ocultarla al publico)
-const apiKey = 'API KEY AQUI'
+const apiKey = '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'
 
 const chatLog = document.getElementById('chat-log');
 const userInput = document.getElementById('user-input');
@@ -45,16 +46,37 @@ function leerTexto(text) {
 }
 //
 
+let contextoPrevio = [];
+
+
 // Actualiza el chat al apretar el boton de enviar
 sendBtn.addEventListener('click', async () => {
         
         const userMessage = userInput.value.trim();
         if (userMessage === '') return;
         
+        const textoCompleto = contextoPrevio.join('/n') + '/n' + userMessage;
+        
+        const respuesta = await axios.post(
+            'https://api.openai.com/v1/completions',
+            {
+                model: "text-davinci-002",
+                prompt: textoCompleto,
+                max_tokens: 100
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        contextoPrevio.push(respuesta.data.choices[0].text.trim());
+
         appendMessage('user', userMessage);
         userInput.value = '';
-        const botResponse = await sendMessage(userMessage);
-        appendMessage('bot', botResponse);
+        //const botResponse = await sendMessage(userMessage);
+        appendMessage('bot', respuesta.data.choices[0].text.trim());
         
         
 });
@@ -86,11 +108,9 @@ async function sendMessage(message) {
                 messages: [
                     {
                         role: 'user',
-                        content: message+=", si es necesario hazme preguntas para mejorar tu respuestas, responde en maximo 50 palabras"
+                        content: message
                     }
-                ],
-                max_tokens: 25,
-                temperature: 0.2
+                ]
             })
         });
         

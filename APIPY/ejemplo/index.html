@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        #chat-container {
+            width: 300px;
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container"></div>
+    <input type="text" id="input-message" placeholder="Escribe tu mensaje aquí...">
+    <button onclick="sendMessage()">Enviar</button>
+
+    <script>
+        // URL de la API de OpenAI
+const apiUrl = 'http://127.0.0.1:5000/chatbot'; // Cambia esto según la URL de tu API
+
+// Función para enviar un mensaje al chatbot
+function sendMessage() {
+    const messageInput = document.getElementById('input-message');
+    const message = messageInput.value.trim();
+
+    if (message === '') return;
+
+    // Agregar mensaje del usuario al chat
+    appendMessage('Usuario', message);
+
+    // Limpiar el campo de entrada
+    messageInput.value = '';
+
+    // Enviar el mensaje a la API de OpenAI y obtener la respuesta
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ pregunta: message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Agregar la respuesta del chatbot al chat
+        appendMessage('Chatbot', data.respuesta);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Función para agregar un mensaje al contenedor de chat
+function appendMessage(sender, message) {
+    const chatContainer = document.getElementById('chat-container');
+    const messageElement = document.createElement('div');
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatContainer.appendChild(messageElement);
+
+    // Desplazar hacia abajo para mostrar el último mensaje
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+    </script>
+</body>
+</html>
