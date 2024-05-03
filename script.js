@@ -45,7 +45,37 @@ function leerTexto(text) {
 
     window.speechSynthesis.speak(speech);
 }
-//
+//fin reconocimento de voz
+
+//text to speech
+const containerVoices = document.getElementById("containerVoices");
+let voices = [];
+let utterance = new SpeechSynthesisUtterance();
+
+function textToSpeak(txt) {
+    utterance.text = txt;
+    window.speechSynthesis.speak(utterance);
+}
+
+document.addEventListener("DOMContentLoaded", (e) => {
+    window.speechSynthesis.addEventListener("voiceschanged", () => {
+        voices = window.speechSynthesis.getVoices();
+        console.log(voices);
+        voices.forEach((el) => {
+            const option = document.createElement("option");
+            option.value = el.name;
+            option.textContent = `${el.name} (${el.lang})`;
+            containerVoices.appendChild(option);
+        });
+    });
+});
+
+document.addEventListener("change", (e) => {
+  if (e.target === containerVoices) {
+      utterance.voice = voices.find((voice) => voice.name === e.target.value);
+  }
+});
+//fin text to speech
 
 // Actualiza el chat al apretar el boton de enviar
 sendBtn.addEventListener('click', async () => {
@@ -124,6 +154,9 @@ function appendMessage(role, message) {
     messageElement.classList.add(role === 'user' ? 'user-message' : 'bot-message');
     messageElement.textContent = message;
     chatLog.appendChild(messageElement);
+    if(role=='bot'){
+        textToSpeak(message);
+    }
     
     chatLog.scrollTop = chatLog.scrollHeight;
 }
