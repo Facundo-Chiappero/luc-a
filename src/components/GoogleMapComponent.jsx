@@ -1,106 +1,87 @@
-import React, { useEffect, useRef, useState } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import './MapComponent.css'; // Asegúrate de importar el CSS
+import React, { useEffect, useRef } from 'react';
+import { loadGoogleMaps } from '../utils/LoadGoogleMaps';
+import './MapComponent.css';
 
-const MapComponent = () => {
+const GoogleMapComponent = () => {
   const mapRef = useRef(null);
-  const [map, setMap] = useState(null);
-  const [userLocation, setUserLocation] = useState(null);
-  const userMarkerRef = useRef(null); // Referencia para el marcador del usuario
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {
-    const initializeMap = () => {
-      if (!map) {
-        const initialMap = L.map(mapRef.current).setView([51.505, -0.09], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(initialMap);
-        setMap(initialMap);
-      }
-    };
+    const initializeMap = async () => {
+      console.log('GoogleMapComponent mounted');
+      try {
+        const googleMaps = await loadGoogleMaps(apiKey);
+        
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            
+            const map = new googleMaps.Map(mapRef.current, {
+              center: userLocation,
+              zoom: 12,
+            });
 
-    const getUserLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const { latitude, longitude } = position.coords;
-          const location = [latitude, longitude];
-          setUserLocation(location);
-          map.setView(location, 13);
+            const service = new googleMaps.places.PlacesService(map);
+            const request = {
+              location: userLocation,
+              radius: '5000',
+              type: ['Farmacia', 'Hospital', 'Clinica', 'Salud'],
+            };
+            
+            service.nearbySearch(request, (results, status) => {
+              if (status === googleMaps.places.PlacesServiceStatus.OK) {
+                results.forEach((place) => {
+                  const marker = new googleMaps.Marker({
+                    position: place.geometry.location,
+                    map: map,
+                    title: place.name,
+                  });
 
-          findNearbyPharmacies(location);
-          findNearbyHealthCenters(location);
-        }, () => {
-          console.error('Geolocation failed or not supported.');
-        });
-      } else {
-        console.error('Geolocation is not supported by this browser.');
-      }
-    };
+                  const photos = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 300, maxHeight: 200}) : null;
 
-    const findNearbyPharmacies = (location) => {
-      const [lat, lon] = location;
-      const query = `[out:json];
-        (
-          node["amenity"="pharmacy"](around:200000, ${lat}, ${lon});
-          node["amenity"="chemist"](around:200000, ${lat}, ${lon});
-          node["amenity"="drugstore"](around:200000, ${lat}, ${lon});
-          node["amenity"="health_food"](around:200000, ${lat}, ${lon});
-          node["shop"="pharmacy"](around:200000, ${lat}, ${lon});
-        );
-        out body;`;
+                  const infowindowContent = `
+                    <div>
+                      <strong>${place.name}</strong><br>
+                      ${photos ? `<br><img src="${photos}" alt="${place.name}" class="place-photo">` : ''}<br>
+                      ${place.vicinity}
+                    </div>
+                  `;
 
-      fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data); // Para depuración
-          data.elements.forEach((pharmacy) => {
-            const pharmacyLocation = [pharmacy.lat, pharmacy.lon];
-            L.marker(pharmacyLocation).addTo(map)
-              .bindPopup(`<b>${pharmacy.tags.name || 'Pharmacy'}</b><br>${pharmacy.tags.addr_full || ''}`);
+                  const infowindow = new googleMaps.InfoWindow({
+                    content: infowindowContent,
+                  });
+
+                  marker.addListener('click', () => {
+                    infowindow.open(map, marker);
+                  });
+                });
+              } else {
+                console.error('PlacesService status:', status);
+              }
+            });
+          }, (error) => {
+            console.error('Geolocation error:', error);
           });
-        })
-        .catch(error => console.error('Error fetching pharmacies:', error));
-    };
-
-    const findNearbyHealthCenters = (location) => {
-      const [lat, lon] = location;
-      const query = `[out:json];
-        (
-          node["amenity"="Hospital"](around:200000, ${lat}, ${lon});
-          node["amenity"="clinic"](around:200000, ${lat}, ${lon});
-          node["amenity"="clinica"](around:200000, ${lat}, ${lon});
-          node["amenity"="health_center"](around:200000, ${lat}, ${lon});
-          node["amenity"="doctor"](around:20000, ${lat}, ${lon});
-          node["amenity"="nursing_home"](around:200000, ${lat}, ${lon});
-          node["amenity"="assistance"](around:200000, ${lat}, ${lon});
-        );
-        out body;`;
-
-      fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data); // Para depuración
-          data.elements.forEach((healthCenter) => {
-            const healthLocation = [healthCenter.lat, healthCenter.lon];
-            L.marker(healthLocation).addTo(map)
-              .bindPopup(`<b>${healthCenter.tags.name || 'Health Center'}</b><br>${healthCenter.tags.addr_full || ''}`);
-          });
-        })
-        .catch(error => console.error('Error fetching health centers:', error));
+        } else {
+          console.error('Geolocation is not supported by this browser.');
+        }
+      } catch (error) {
+        console.error('Error loading Google Maps:', error);
+      }
     };
 
     initializeMap();
-    if (map) getUserLocation();
-
-  }, [map]);
+  }, [apiKey]);
 
   return (
     <div className="map-container">
-      <h2 className="map-title">Farmacias y Centros de Salud</h2>
+      <h2 className="map-title">Mapa de Salud</h2>
       <div className="map" ref={mapRef}></div>
     </div>
   );
 };
 
-export default MapComponent;
+export default GoogleMapComponent;

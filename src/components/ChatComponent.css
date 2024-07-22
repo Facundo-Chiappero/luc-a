@@ -1,27 +1,40 @@
 body {
     background-color: #1a1a1a;
-    color: #ffffff;
+    color: #e2e2e2;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
-
-h1 {
-    color: #ffffff;
+fieldset {
+    border: #e2e2e2 1px solid;
+    border-radius: 15px;
+}
+legend {
+    color: #e2e2e2;
+    font-size: 56px;
+    padding: 10px;
+    font-weight: 900;
     text-align: center;
 }
-
+.div-contenedor{
+    box-sizing: border-box;
+}
 #chat-container {
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #333333;
+    background-color: #1a1a1a;
+    box-shadow: 0 0 30px #272727;
     border-radius: 10px;
 }
 
 #chat-log {
-    max-height: 300px;
+    flex-grow: 1;
     overflow-y: auto;
+    margin-bottom: 20px;
 }
 
 #chat-log::-webkit-scrollbar {
@@ -37,72 +50,88 @@ h1 {
     border-radius: 5px;
 }
 
-#chat-log::-webkit-scrollbar-thumb:hover{
+#chat-log::-webkit-scrollbar-thumb:hover {
     background-color: #777;
 }
 
-.user-message, .bot-message {
-    margin-bottom: 10px;
-}
-
 .user-message {
-    background-color: #2962ff;
-    color: #ffffff; 
-    margin-right: 10px;
-    padding: 10px;
+    margin-bottom: 10px;
     border-radius: 15px;
+    background-color: #2196f3;
+    color: #ffffff;
+    margin-left: auto;
+    padding: 10px;
+    max-width: 60%;
     float: right; 
     clear: both;
 }
 
 .bot-message {
-    background-color: #2196f3;
-    color: #ffffff; 
-    padding: 10px;
+    margin-bottom: 10px;
     border-radius: 15px;
+    background-color: #2962ff;
+    color: #ffffff;
+    margin-right: auto;
+    padding: 10px;
+    max-width: 60%;
     float: left; 
     clear: both;
 }
 
+#user-input-container {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+}
+
 #user-input {
-    width: calc(100% - 70px);
+    flex-grow: 1;
     padding: 10px;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
+    margin-right: 10px;
 }
 
 .btn {
     background-color: #4caf50;
-    color: #ffffff; 
+    color: #ffffff;
     border: none;
-    margin-top: 10px;
+    width: 150px;
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+#containerVoices {
+    padding: 10px 20px;
+    border-radius: 10px;
     cursor: pointer;
 }
-#containerVoices{
-    border: none;
-    margin-top: 10px;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-#a{
+
+#a {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-.btn:hover {
-    background-color: #45a049; 
-}
-
-#btns{
+#btns {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-
-#btnStop{
+#delete-btn{
+    background-color: #4f4f4f;
+}
+#delete-btn:hover{
+    background-color: #484848;
+}
+#btnStop {
     display: none;
+    background-color: #ff0000;
+
 }

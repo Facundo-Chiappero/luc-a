@@ -7,7 +7,6 @@ export function App() {
   return (
     <div>
       <ChatComponent />
-      <GoogleMapComponent />
     </div>
   );
 }

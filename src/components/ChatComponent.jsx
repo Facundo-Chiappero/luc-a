@@ -30,6 +30,11 @@ export function ChatComponent() {
       const availableVoices = window.speechSynthesis.getVoices();
       setVoices(availableVoices);
     };
+
+    // Cleanup function to stop any ongoing speech synthesis when the component unmounts
+    return () => {
+      window.speechSynthesis.cancel();
+    };
   }, []);
 
   const handleSend = async () => {
@@ -47,6 +52,7 @@ export function ChatComponent() {
     if (chatLogRef.current) {
       chatLogRef.current.innerHTML = '';
     }
+    stopSpeaking(); // Stop any ongoing speech synthesis when deleting messages
   };
 
   const appendMessage = (role, message) => {
@@ -111,6 +117,10 @@ export function ChatComponent() {
     window.speechSynthesis.speak(utterance);
   };
 
+  const stopSpeaking = () => {
+    window.speechSynthesis.cancel();
+  };
+
   const handleVoiceChange = (e) => {
     const selectedVoice = voices.find((voice) => voice.name === e.target.value);
     userInputRef.current.value = selectedVoice.name;
@@ -128,52 +138,56 @@ export function ChatComponent() {
 
   return (
     <header>
-      <h1>LUC-A</h1>
-      <div id="chat-container">
+      <div className='div-contenedor'>
+        <fieldset id="chat-container">
+          <legend>LUC-A</legend>
         <div id="chat-log" ref={chatLogRef}></div>
-        <input
-          type="text"
-          id="user-input"
-          placeholder="Escribe tu mensaje..."
-          value={userMessage}
-          onChange={(e) => setUserMessage(e.target.value)}
-          onKeyPress={async (event) => {
-            if (event.key === 'Enter') await handleSend();
-          }}
-        />
-        <div id="btns">
-          <button id="send-btn" className="btn" onClick={handleSend}>
-            Enviar
-          </button>
-          <button id="delete-btn" className="btn" onClick={handleDelete}>
-            Borrar
-          </button>
-          <button
-            id="btnStart"
-            className="btn"
-            onClick={handleStartRecognition}
-            style={{ display: isRecognizing ? 'none' : 'block' }}
-          >
-            Grabar
-          </button>
-          <button
-            id="btnStop"
-            className="btn"
-            onClick={handleStopRecognition}
-            style={{ display: isRecognizing ? 'block' : 'none' }}
-          >
-            Grabando...
-          </button>
+        <div id="user-input-container">
+          <input
+            type="text"
+            id="user-input"
+            placeholder="Escribe tu mensaje..."
+            value={userMessage}
+            onChange={(e) => setUserMessage(e.target.value)}
+            onKeyPress={async (event) => {
+              if (event.key === 'Enter') await handleSend();
+            }}
+          />
+          <div id="btns">
+            <button id="send-btn" className="btn" onClick={handleSend}>
+              Enviar
+            </button>
+            <button id="delete-btn" className="btn" onClick={handleDelete}>
+              Borrar
+            </button>
+            <button
+              id="btnStart"
+              className="btn"
+              onClick={handleStartRecognition}
+              style={{ display: isRecognizing ? 'none' : 'block' }}
+            >
+              Grabar
+            </button>
+            <button
+              id="btnStop"
+              className="btn"
+              onClick={handleStopRecognition}
+              style={{ display: isRecognizing ? 'block' : 'none' }}
+            >
+              Grabando...
+            </button>
+          </div>
+          <form id="a">
+            <select id="containerVoices" ref={userInputRef} onChange={handleVoiceChange}>
+              {voices.map((voice) => (
+                <option key={voice.name} value={voice.name}>
+                  {voice.name} ({voice.lang})
+                </option>
+              ))}
+            </select>
+          </form>
         </div>
-        <form id="a">
-          <select id="containerVoices" ref={userInputRef} onChange={handleVoiceChange}>
-            {voices.map((voice) => (
-              <option key={voice.name} value={voice.name}>
-                {voice.name} ({voice.lang})
-              </option>
-            ))}
-          </select>
-        </form>
+        </fieldset>
       </div>
     </header>
   );
