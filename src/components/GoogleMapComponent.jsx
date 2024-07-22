@@ -44,7 +44,7 @@ const GoogleMapComponent = () => {
 
                   const infowindowContent = `
                     <div>
-                      <strong>${place.name}</strong><br>
+                      <strong>${place.name || 'No name available'}</strong><br>
                       ${photos ? `<br><img src="${photos}" alt="${place.name}" class="place-photo">` : ''}<br>
                       ${place.vicinity}
                     </div>

@@ -1,0 +1,60 @@
+/* Estilos globales */
+body {
+    background-color: #1a1a1a;
+    color: #e2e2e2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Estilos del header */
+  header {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    border-bottom: 5px solid #4caf50;
+  }
+  
+  header h1 {
+    color: #4caf50;
+    font-size: 36px;
+    margin: 0;
+  }
+  
+  /* Estilos del contenido principal */
+  .main-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .main-content h2 {
+    color: #4caf50;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .main-content img {
+    max-width: 80%;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .main-content p {
+    max-width: 80%;
+    line-height: 1.6;
+    margin: 20px 0;
+    text-align: justify;
+  }
+  
+  /* Estilos del footer */
+  footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: #e2e2e2;
+    border-top: 5px solid #4caf50;
+  }
+  

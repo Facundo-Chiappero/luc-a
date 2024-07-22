@@ -1,14 +1,14 @@
 import React from 'react';
-import ChatComponent from './components/ChatComponent';
+import MainPage from './components/MainPage';
 import NavBar from './components/NavBar';
 
-export function App() {
+
+export function Principal() {
   return (
     <div>
       <NavBar/>
-      <ChatComponent />
+      <MainPage />
     </div>
   );
 }
-
-export default App;
+export default Principal;
