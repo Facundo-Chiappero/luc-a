@@ -1,6 +1,8 @@
 import React from 'react';
 import MainPage from './components/MainPage';
 import NavBar from './components/NavBar';
+import FooterComp from "./components/FooterComp";
+
 
 
 export function Principal() {
@@ -8,6 +10,7 @@ export function Principal() {
     <div>
       <NavBar/>
       <MainPage />
+      <FooterComp/>
     </div>
   );
 }

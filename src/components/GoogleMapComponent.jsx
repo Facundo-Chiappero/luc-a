@@ -28,8 +28,9 @@ const GoogleMapComponent = () => {
             const request = {
               location: userLocation,
               radius: '5000',
-              type: ['Farmacia', 'Hospital', 'Clinica', 'Salud'],
+              type: ['pharmacy'],
             };
+            
             
             service.nearbySearch(request, (results, status) => {
               if (status === googleMaps.places.PlacesServiceStatus.OK) {

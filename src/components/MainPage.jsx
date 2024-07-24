@@ -1,26 +1,40 @@
 import React from 'react';
 import './MainPage.css';
-
 function MainPage() {
+  
   return (
-    <div>
+    <div id="inicio">
       <header>
-        <h1>LUC-A</h1>
+      <div className="container">
+        <div className="title">
+          <h1 id="main-title">LUC-A</h1>
+          <p id="subtitle">Asistente Médico</p>
+        </div>
+      </div>
       </header>
       <div className="main-content">
-        <h2>Our Process</h2>
-        <img src="/path/to/image1.jpg" alt="Process step 1" />
-        <p>Step 1: Explanation of the first step. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac erat nec metus volutpat accumsan. Sed convallis purus id urna lacinia, in fermentum augue pulvinar.</p>
-        <img src="/path/to/image2.jpg" alt="Process step 2" />
-        <p>Step 2: Explanation of the second step. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac erat nec metus volutpat accumsan. Sed convallis purus id urna lacinia, in fermentum augue pulvinar.</p>
-        <img src="/path/to/image3.jpg" alt="Process step 3" />
-        <p>Step 3: Explanation of the third step. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac erat nec metus volutpat accumsan. Sed convallis purus id urna lacinia, in fermentum augue pulvinar.</p>
+      <div className="profile-container luc-a-Info">
+        <img src="src\imgs\logo.jpeg" alt="Logo Luc-A" />
+        <div className="profile-text">
+          <h2>¡Hola! Soy Luc-A</h2>
+          <p>Chatbot con inteligencia artificial diseñado para proporcionar asistencia médica personalizada. Mi objetivo principal es ofrecer a los usuarios un pre diagnóstico basado en los síntomas que describen, brindando orientación sobre el tipo de especialista que podrían necesitar consultar</p>
+        </div>
       </div>
-      <footer>
-        <p>&copy; 2023 LUC-A. All rights reserved.</p>
-      </footer>
+      <div className="main-content-white">
+        <div className="profile-container-white">
+          <div className="profile-text-white">
+            <h2>Nuestro Equipo</h2>
+            <p>Equipo de 7 estudiantes de la escuela de programacion ProA Técnica San Francisco. Aplicamos nuestros conocimientos para crear herramientas que impacten positivamente en la comunidad, inspirados por nuestro compromiso con la excelencia y el progreso</p>
+          </div>
+          <div className="image-rectangle">
+            <img src="src\imgs\nosotros.jpeg" alt="Nuestro Equipo" id="profile-image" />
+          </div>
+  </div>
+</div>
+
+      </div>
     </div>
   );
 }
-
 export default MainPage;
+

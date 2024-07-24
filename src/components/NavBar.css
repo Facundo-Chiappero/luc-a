@@ -1,19 +1,24 @@
-/* NavBar.css */
 .navbar {
-    background-color: #333;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .navbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  .navbar a:hover {
-    text-decoration: underline;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro semi-transparente */
+  backdrop-filter: blur(10px); /* Aplicar efecto de desenfoque */
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  text-transform: uppercase;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: #ffffff; /* Texto blanco para contraste */
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}

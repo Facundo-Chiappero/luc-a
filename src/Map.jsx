@@ -1,6 +1,8 @@
 import React from 'react';
 import GoogleMapComponent from './components/GoogleMapComponent';
 import NavBar from './components/NavBar';
+import FooterComp from "./components/FooterComp";
+
 
 
 export function Map() {
@@ -8,6 +10,7 @@ export function Map() {
     <div>
       <NavBar/>
       <GoogleMapComponent />
+      <FooterComp/>
     </div>
   );
 }
