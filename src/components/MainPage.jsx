@@ -24,7 +24,7 @@ function MainPage() {
         <div className="profile-container-white">
           <div className="profile-text-white">
             <h2>Nuestro Equipo</h2>
-            <p>Equipo de 7 estudiantes de la escuela de programacion ProA Técnica San Francisco. Aplicamos nuestros conocimientos para crear herramientas que impacten positivamente en la comunidad, inspirados por nuestro compromiso con la excelencia y el progreso</p>
+            <p>Equipo de 10 estudiantes de la escuela de programacion ProA Técnica San Francisco. Aplicamos nuestros conocimientos para crear herramientas que impacten positivamente en la comunidad, inspirados por nuestro compromiso con la excelencia y el progreso</p>
           </div>
           <div className="image-rectangle">
             <img src="src\imgs\nosotros.jpeg" alt="Nuestro Equipo" id="profile-image" />
