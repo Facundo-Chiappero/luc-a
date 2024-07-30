@@ -19,13 +19,13 @@ const FooterComp = () => {
                     </ul>
                 </div>
                 <div className="footer-right">
-                    <h3>Escuela Proa Tecnica</h3>
+                    <h3>Escuela ProA Técnica</h3>
                     <p><i className="fa fa-map-marker"></i> Las Guayanas 533, San Francisco, Córdoba, Argentina</p>
                 </div>
             </div>
             <div className="footer-bottom">
                 <p>© 2024 Robot Médico. Todos los derechos reservados.</p>
-                <p>Diseñado por 7mo Proa Tecnica San Francisco 2024</p>
+                <p>Diseñado por 7mo, ProA Técnica, San Francisco (2024)</p>
             </div>
         </footer>
     );
