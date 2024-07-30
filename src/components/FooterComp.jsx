@@ -7,7 +7,7 @@ const FooterComp = () => {
             <div className="footer-content">
                 <div className="footer-left">
                     <h3>Robot Médico</h3>
-                    <p> Optimiza tu salud con Luca: tecnología avanzada al servicio de tu bienestar y seguridad.
+                    <p> Optimiza tu salud con Luc-A: tecnología avanzada al servicio de tu bienestar y seguridad.
                     </p>
                 </div>
                 <div className="footer-center">

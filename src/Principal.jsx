@@ -4,7 +4,6 @@ import NavBar from './components/NavBar';
 import FooterComp from "./components/FooterComp";
 
 
-
 export function Principal() {
   return (
     <div>
