@@ -11,6 +11,25 @@ const ChatComponent = () => {
     const btnStop = useRef(null);
     const deleteBtn = useRef(null);
     const containerVoices = useRef(null);
+    const [fontSize, setFontSize] = useState(16);
+    // Función para aumentar el tamaño de la fuente
+    const increaseFontSize = () => {
+        if (fontSize < 56) {
+        setFontSize(prevFontSize => prevFontSize + 2);
+        var chatLogElement = document.getElementById('chat-log');
+        chatLogElement.style.fontSize = `${fontSize}px`;
+    }
+
+    };
+
+  // Función para disminuir el tamaño de la fuente
+    const decreaseFontSize = () => {
+        if (fontSize > 8) {
+        setFontSize(prevFontSize => prevFontSize - 2);
+        var chatLogElement = document.getElementById('chat-log');
+        chatLogElement.style.fontSize = `${fontSize}px`;
+    }
+    };
 
     // Recognition setup
     const recognition = new window.webkitSpeechRecognition();
@@ -191,6 +210,12 @@ const ChatComponent = () => {
                     </div>
                 </fieldset>
             </div>
+             <div className="font-changer">
+                <button className="btn" onClick={increaseFontSize}>Aumentar</button>
+                <span className="font-size-label">Tamaño de fuente: <span className="font-size-value">{fontSize}</span>px</span>
+                <button className="btn decremento" onClick={decreaseFontSize}>Disminuir</button>
+            </div>
+      
             
         </header>
     );
