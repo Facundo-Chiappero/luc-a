@@ -151,7 +151,7 @@ const ChatComponent = () => {
                   messages: [
                       {
                           role: 'system',
-                          content: 'You are a medical assistant designed to provide preliminary medical diagnoses. Try to do so in under 50 words, and ask questions to improve your response when necessary, most of your users speak Spanish'
+                          content: 'You are a medical assistant designed to provide preliminary medical diagnoses. Try to do so in under 50 words, and ask questions to improve your response when necessary, Do not recommend medications and treatments, most of your users speak Spanish'
                       },
                       {
                           role: 'user',
@@ -197,7 +197,7 @@ const ChatComponent = () => {
                     <legend>LUC-A</legend>
                     <div id="chat-log" ref={chatLog}></div>
                     <div id="user-input-container">
-                        <input type="text" id="user-input" placeholder="Escribe tu mensaje..." ref={userInput} onKeyPress={handleKeyPress} />
+                        <input type="text" id="user-input" placeholder="Escribe tu mensaje..." ref={userInput} onKeyPress={handleKeyPress} autocomplete="off" />
                         <div id="btns">
                             <button id="send-btn" className="btn" onClick={handleSend}>Enviar</button>
                             <button id="delete-btn" className="btn" onClick={handleDelete}>Borrar</button>

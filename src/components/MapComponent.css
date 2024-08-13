@@ -3,6 +3,34 @@ body{
   padding: 0;
   background: #212121;
 }
+/* Estilos para los botones de selección */
+.options-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.options-container button {
+  background-color: #4caf50; /* Color de fondo azul */
+  color: white; /* Color del texto blanco */
+  border: none; /* Sin bordes */
+  padding: 10px 20px; /* Espaciado interno */
+  margin: 0 10px; /* Espaciado entre botones */
+  font-size: 16px; /* Tamaño de fuente */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor en forma de mano */
+  transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+.options-container button:hover {
+  background-color: #45a049; /* Cambio de color al pasar el mouse */
+}
+
+.options-container button:focus {
+  outline: none; /* Eliminar contorno al enfocar */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra al enfocar */
+}
+
 *{
   font-family: Arial, Helvetica, sans-serif;
 }
